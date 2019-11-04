@@ -1,0 +1,273 @@
+---
+title: "Assignment-6"
+output:
+    html_document: default
+---
+```{r}
+library(lpSolveAPI)
+library(Benchmarking)
+library(ucminf)
+```
+
+
+```{r}
+# Q1 :
+# DMU 1
+lprec1<-make.lp(0,4)
+lp.control(lprec1,sense="max")
+set.objfn(lprec1,c(0,0,14000,3500))
+# Constraints for Facility 1
+add.constraint(lprec1,c(-150,-0.2,14000,3500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec1,c(-400,-0.7,14000,21000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec1,c(-320,-1.2,42000,10500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec1,c(-520,-2.0,28000,42000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec1,c(-350,-1.2,19000,25000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec1,c(-320,-0.7,14000,15000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec1,c(150,0.2),"=",1,indices = c(1,2))
+solve(lprec1)
+get.objective(lprec1) 
+get.variables(lprec1)
+#The solution indicates that the objective value is 1, which indicates that we are able to achieve maximum efficiency for DMU(1). This happens when we use the weights 0 and 0.00714 for the outputs, 0.5172414 and 1.12069 for the input.
+```
+
+
+```{r}
+# DMU 2
+lprec2<-make.lp(0,4)
+lp.control(lprec2,sense="max")
+set.objfn(lprec2,c(0,0,14000,21000))
+# Constraints for Facility 2
+add.constraint(lprec2,c(-400,-0.7,14000,21000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec2,c(-150,-0.2,14000,3500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec2,c(-320,-1.2,42000,10500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec2,c(-520,-2.0,28000,42000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec2,c(-350,-1.2,19000,25000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec2,c(-320,-0.7,14000,15000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec2,c(400,0.7),"=",1,indices = c(1,2))
+solve(lprec2)
+get.objective(lprec2)
+get.variables(lprec2)
+#The solution indicates that the objective value is 1, which indicates that we are able to achieve maximum efficiency for DMU(2). This happens when we use the weights 0 and 0.00476 for the outputs, 0.1376147 and 0.6422 for the input.
+```
+
+
+```{r}
+#DMU 3
+lprec3<-make.lp(0,4)
+lp.control(lprec3,sense="max")
+set.objfn(lprec3,c(0,0,42000,10500))
+# Constraints for Facility 3
+add.constraint(lprec3,c(-400,-0.7,14000,21000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec3,c(-150,-0.2,14000,3500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec3,c(-320,-1.2,42000,10500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec3,c(-520,-2.0,28000,42000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec3,c(-350,-1.2,19000,25000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec3,c(-320,-0.7,14000,15000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec3,c(320,1.2),"=",1,indices = c(1,2))
+solve(lprec3)
+get.objective(lprec3)
+get.variables(lprec3)
+#The solution indicates that the objective value is 1, which indicates that we are able to achieve maximum efficiency for DMU(3). This happens when we use the weights 0 and 0.00238 for the outputs, 0.001724 and 0.3735 for the input.
+```
+
+
+```{r}
+#DMU 4
+lprec4<-make.lp(0,4)
+lp.control(lprec4,sense="max")
+set.objfn(lprec4,c(0,0,28000,42000))
+# Constraints for Facility 4
+add.constraint(lprec4,c(-400,-0.7,14000,21000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec4,c(-150,-0.2,14000,3500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec4,c(-320,-1.2,42000,10500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec4,c(-520,-2.0,28000,42000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec4,c(-350,-1.2,19000,25000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec4,c(-320,-0.7,14000,15000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec4,c(520,2.0),"=",1,indices = c(1,2))
+solve(lprec4)
+get.objective(lprec4)
+get.variables(lprec4)
+#The solution indicates that the objective value is 1, which indicates that we are able to achieve maximum efficiency for DMU(4). This happens when we use the weights 0 and 0.00238 for the outputs, 0.0688 and 0.3211 for the input.
+```
+
+
+```{r}
+#DMU 5
+lprec5<-make.lp(0,4)
+lp.control(lprec5,sense="max")
+set.objfn(lprec5,c(0,0,19000,25000))
+# Constraints for Facility 5
+add.constraint(lprec5,c(-400,-0.7,14000,21000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec5,c(-150,-0.2,14000,3500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec5,c(-320,-1.2,42000,10500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec5,c(-520,-2.0,28000,42000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec5,c(-350,-1.2,19000,25000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec5,c(-320,-0.7,14000,15000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec5,c(350,1.2),"=",1,indices = c(1,2))
+solve(lprec5)
+get.objective(lprec5)
+get.variables(lprec5)
+#The solution indicates that the objective value is 0.9775, which indicates that we are not able to achieve maximum efficiency for DMU(5). This happens when we use the weights 0.00001151 and 0.000030350 for the outputs, 0.001098 and 0.5128 for the input.
+```
+
+
+```{r}
+#DMU 6
+lprec6<-make.lp(0,4)
+lp.control(lprec6,sense="max")
+set.objfn(lprec6,c(0,0,14000,15000))
+# Constraints for Facility 6
+add.constraint(lprec6,c(-400,-0.7,14000,21000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec6,c(-150,-0.2,14000,3500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec6,c(-320,-1.2,42000,10500),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec6,c(-520,-2.0,28000,42000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec6,c(-350,-1.2,19000,25000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec6,c(-320,-0.7,14000,15000),"<=",0,indices = c(1,2,3,4))
+add.constraint(lprec6,c(320,0.7),"=",1,indices = c(1,2))
+solve(lprec6)
+get.objective(lprec6)
+get.variables(lprec6)
+#The solution indicates that the objective value is 0.08674521, which indicates that we are not able to achieve maximum efficiency for DMU(6). This happens when we use the weights 0.00162 and 0.00427 for the outputs, 0.1546 and 0.7216 for the input.
+```
+
+Using Benchmarking Libraries for DEA
+```{r}
+# DEA Analysis
+x<-matrix(c(150,400,320,520,350,320,0.2,0.7,1.2,2.0,1.2,0.7),ncol=2)
+
+
+y<-matrix(c(14000,14000,42000,28000,19000,14000,3500,21000,10500,42000,25000,15000),ncol=2)
+
+
+
+colnames(x)<-c("Staff Hours/Day","Supplies/Day")
+colnames(y)<-c("Reimbursed Patients/Day","Privately Paid Patients/Day")
+
+rownames(x)<-paste0(rep("Facility",6),seq(1,6,1))
+rownames(y)<-paste0(rep("Facility",6),seq(1,6,1))
+
+x
+y
+```
+
+
+```{r}
+# provide the input and output
+r1 <-dea(x,y,RTS = "crs")
+r1
+peers(r1)
+lambda(r1)
+```
+
+comment :  The peer units for DMU(5) are [1, 2, 4] (1 ,2,4), with relative weights [0.2, 0.0804814, 0, 0.5383307] (0.2,0.080, 0, 0.538). Similary for DMU(6), the peer units are [1, 2, 4] (1,2,4), with weights [0.3428571, 0.3949926, 0, 0.1310751] (0.342, 0.394 ,0,0.131), respectively.
+
+```{r}
+r2 <-dea(x,y,RTS = "fdh")
+r2
+peers(r2)
+lambda(r2)
+```
+Comment: The results indicate that DMUs all are efficient.
+
+```{r}
+r3 <-dea(x,y,RTS = "vrs")
+r3
+peers(r3)
+lambda(r3)
+```
+Comment: The results indicate that DMUs 1,2,3,4 and 5 are effiecient . DMU(6) is only 0.8963283 efficient.
+
+Comment: The peer units for DMU(6) are [1, 2, 5] (1 ,2,5), with relative weights [0.4014399, 0.3422606, 0, 0, 0.2562995] (0.4014399 ,0.3422606, 0, 0, 0.2562995).
+
+```{r}
+r4 <-dea(x,y,RTS = "irs")
+r4
+peers(r4)
+lambda(r4)
+```
+Comment: The results indicate that DMUs 1,2,3,4 and 5. DMU(6) is only 0.8963283 efficient.
+
+Comment: The peer units for DMU(6) are [1, 2, 5] (1 ,2,5), with relative weights [0.4014399, 0.3422606, 0, 0, 0.2562995] (0.4014399 ,0.3422606, 0, 0, 0.2562995).
+
+```{r}
+r5 <-dea(x,y,RTS = "drs")
+r5
+peers(r5)
+lambda(r5)
+```
+Comment: The results indicate that DMUs 1,2, 3, and 4 are efficient. DMU(6) is only 0.8674521 efficient, and DMU(5) is 0.9774987 efficient. as per initial formulation
+
+Comment: The peer units for DMU(5) are [1, 2, 4] (1 ,2,4), with relative weights [0.2, 0.0804814, 0, 0.5383307] (0.2000000 ,0.08048142 ,0 ,0.5383307). Similary for DMU(6), the peer units are [1, 2, 4] (1,2,4), with weights [0.3428571, 0.3949926, 0, 0.1310751] (0.3428571 ,0.39499264 ,0 ,0.1310751), respectively.
+
+
+```{r}
+r6 <-dea(x,y,RTS = "add")
+r6
+peers(r6)
+lambda(r6)
+```
+
+
+Comment: The results indicate that DMUs all are efficient.
+
+
+
+```{r}
+r7 <-dea(x,y,RTS = "irs2")
+r7
+peers(r7)
+lambda(r7)
+```
+Comment: The results indicate that DMUs all are efficient.
+
+```{r}
+r8 <-dea(x,y,RTS = "fdh+")
+r8
+peers(r8)
+lambda(r8)
+```
+Comment: The results indicate that DMUs all are efficient.
+
+```{r}
+r9 <-dea(x,y,RTS = "vrs+")
+r9
+peers(r9)
+lambda(r9)
+```
+Comment: The results indicate that DMUs all are efficient.
+
+```{r}
+# Q2 : Peers and Lambdas values for each assumption.
+
+
+
+
+
+
+
+
+
+
+```
+
+
+```{r}
+# Q3 :
+result <-cbind(round(r1$eff,4),round(r1$lambda,4))
+colnames(result)<-c("efficieny",rownames(result))
+result
+# From the above table, except Facility5 and Facility6 nursing homes remaining nursing homes are efficient.
+#The efficiency of these nursing homes can be achieved by using shadow prices (lambda values from the above table, they are the variables related to the constraints limiting the efficiency of each unit to be no greater than 1).
+```
+
+
+```{r}
+#Q4 : 
+c1<-cbind(r1$eff,r2$eff,r3$eff,r4$eff,r5$eff,r6$eff,r7$eff,r8$eff,r9$eff)
+colnames(c1)<-c(paste0(rep("r",9),seq(1,9,1)))
+c1
+# From the above table the efficiency of the unit have varied from each assumption.
+
+```
+
+
